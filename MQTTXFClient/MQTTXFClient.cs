@@ -18,7 +18,7 @@ namespace MQTTXFClient
         {
 
         }
-       
+
         string TopicHead;         // 每个设备都有一个用于通讯的特定 URL 头
         string targetServer;      // 生成 MQTT 通讯地址
         /// <summary>
@@ -31,7 +31,7 @@ namespace MQTTXFClient
 
         public void Init(string ProductKey, string DeviceName, string DeviceSecret, string RegionId)
         {
-            
+
             TopicHead = "/" + ProductKey + "/" + DeviceName;    // 针对设备生成 Topic 头
 
             // 生成唯一 ClientID
@@ -115,19 +115,58 @@ namespace MQTTXFClient
         {
             //订阅事件
             client.MqttMsgPublishReceived += PubEventHandler;
+            client.MqttMsgPublished += PubedEventHandler;
+            client.MqttMsgSubscribed += SubedEventHandler;
+            client.MqttMsgUnsubscribed += UnSubedEventHandler;
+            client.ConnectionClosed += ConnectionClosedEventHandler;
         }
 
         /// <summary>
-        /// 订阅回调
+        /// 全部使用预设的事件
+        /// </summary>
+        public void UseDefaultEventHandler()
+        {
+            PubEventHandler += Default_PubEventHandler;
+            PubedEventHandler += Default_PubedEventHandler;
+            SubedEventHandler += Default_SubedEventHandler;
+            UnSubedEventHandler += Default_UnSubedEventHandler;
+            ConnectionClosedEventHandler += Default_ConnectionClosedEventHandler;
+        }
+
+        #region 设置回调事件
+        /// <summary>
+        /// 订阅回调 - 当收到服务器消息时
         /// </summary>
         public uPLibrary.Networking.M2Mqtt.MqttClient.MqttMsgPublishEventHandler PubEventHandler;
 
         /// <summary>
-        /// 默认的回调方法
+        ///// 已发布回调 - 客户端向服务器发布时
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void Default_PublishEvent(object sender, MqttMsgPublishEventArgs e)
+        public uPLibrary.Networking.M2Mqtt.MqttClient.MqttMsgPublishedEventHandler PubedEventHandler;
+
+        /// <summary>
+        /// 向服务器发布 Topic 时
+        /// </summary>
+        public uPLibrary.Networking.M2Mqtt.MqttClient.MqttMsgSubscribedEventHandler SubedEventHandler;
+
+        /// <summary>
+        /// 向服务器发布 Topic 失败时
+        /// </summary>
+        public uPLibrary.Networking.M2Mqtt.MqttClient.MqttMsgUnsubscribedEventHandler UnSubedEventHandler;
+
+
+        /// <summary>
+        /// 断开连接时
+        /// </summary>
+        public uPLibrary.Networking.M2Mqtt.MqttClient.ConnectionClosedEventHandler ConnectionClosedEventHandler;
+
+        #endregion
+
+
+        #region 事件的默认方法
+
+
+        public void Default_PubEventHandler(object sender, MqttMsgPublishEventArgs e)
         {
             // handle message received
             string topic = e.Topic;
@@ -135,6 +174,30 @@ namespace MQTTXFClient
             Console.WriteLine("topic: " + topic);
             Console.WriteLine("get messgae :" + message);
         }
+
+        public void Default_PubedEventHandler(object sender, MqttMsgPublishedEventArgs e)
+        {
+
+        }
+
+        public void Default_SubedEventHandler(object sender, MqttMsgSubscribedEventArgs e)
+        {
+
+        }
+        public void Default_UnSubedEventHandler(object sender, MqttMsgUnsubscribedEventArgs e)
+        {
+
+        }
+
+        public void Default_ConnectionClosedEventHandler(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+
+
+
     }
 
 
@@ -160,8 +223,9 @@ namespace MQTTXFClient
             // deviceSecret
             byte[] key = Encoding.UTF8.GetBytes(deviceSecret);
             byte[] signContent = Encoding.UTF8.GetBytes(builder.ToString());
-            //这里根据signMethod动态调整，本例子硬编码了： 'hmacmd5'
+            //这里根据signMethod动态调整，本例子硬编码了： 'hmacmd5' 其它验证方式：HmacMD5,HmacSHA1,HmacSHA256 签名算法验证 
             var hmac = new HMACMD5(key); // deviceSecret
+
             byte[] hashBytes = hmac.ComputeHash(signContent);
 
             StringBuilder signBuilder = new StringBuilder();
