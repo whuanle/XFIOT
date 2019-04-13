@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFIOT.lib", "XFIOT.lib\XFIOT.lib.csproj", "{726DE5BD-2E39-41C4-97E4-5D2ECED9C1CD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiringXF", "WiringXF\WiringXF.csproj", "{0CF46288-AD2D-4AAB-A74D-85B6D7FA44DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M2Mqtt", "..\mqtt-master\M2Mqtt\M2Mqtt.csproj", "{B691D319-E7B7-457A-A935-35857A9FE5F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{726DE5BD-2E39-41C4-97E4-5D2ECED9C1CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{726DE5BD-2E39-41C4-97E4-5D2ECED9C1CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{726DE5BD-2E39-41C4-97E4-5D2ECED9C1CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CF46288-AD2D-4AAB-A74D-85B6D7FA44DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CF46288-AD2D-4AAB-A74D-85B6D7FA44DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CF46288-AD2D-4AAB-A74D-85B6D7FA44DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CF46288-AD2D-4AAB-A74D-85B6D7FA44DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B691D319-E7B7-457A-A935-35857A9FE5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B691D319-E7B7-457A-A935-35857A9FE5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B691D319-E7B7-457A-A935-35857A9FE5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B691D319-E7B7-457A-A935-35857A9FE5F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
