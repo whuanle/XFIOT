@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiringXFSO", "WiringXF.vcxproj", "{264D55CF-1401-43F6-83EE-BB85BFD9E261}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Debug|ARM.ActiveCfg = Debug|ARM
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Debug|ARM.Build.0 = Debug|ARM
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Debug|ARM64.Build.0 = Debug|ARM64
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Release|ARM.ActiveCfg = Release|ARM
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Release|ARM.Build.0 = Release|ARM
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Release|ARM64.ActiveCfg = Release|ARM64
+		{264D55CF-1401-43F6-83EE-BB85BFD9E261}.Release|ARM64.Build.0 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63C68073-9249-45B5-98D7-44FB79FF94FA}
+	EndGlobalSection
+EndGlobal
