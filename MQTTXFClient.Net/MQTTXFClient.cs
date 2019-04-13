@@ -29,13 +29,6 @@ namespace MQTTXFClient
         string mqttPassword;
         string mqttClientId;
 
-        /// <summary>
-        /// 初始话连接设置
-        /// </summary>
-        /// <param name="ProductKey"></param>
-        /// <param name="DeviceName"></param>
-        /// <param name="DeviceSecret"></param>
-        /// <param name="RegionId"></param>
         public void Init(string ProductKey, string DeviceName, string DeviceSecret, string RegionId)
         {
 
@@ -62,6 +55,8 @@ namespace MQTTXFClient
             mqttUserName = DeviceName + "&" + ProductKey;
             mqttPassword = MQTTService.Sign(dict, DeviceSecret, signmethod);
             targetServer = ProductKey + ".iot-as-mqtt." + RegionId + ".aliyuncs.com";
+
+
         }
 
 
@@ -85,9 +80,8 @@ namespace MQTTXFClient
 
 
             client.ProtocolVersion = MqttProtocolVersion.Version_3_1_1;
-            // 订阅消息，若不指定Topic的QOS，则全部为 0
+            //订阅消息，若不指定Topic的QOS，则全部为 0
             client.Subscribe(SubTopic, QOS);
-            // 设置各种触发事件
             AddPublishEvent();
             // 建立连接
             client.Connect(mqttClientId, mqttUserName, mqttPassword, true, 60);
@@ -184,7 +178,7 @@ namespace MQTTXFClient
             string topic = e.Topic;
             string message = Encoding.ASCII.GetString(e.Message);
             Console.WriteLine("- - - - - - - - - - ");
-            Console.WriteLine("get topic message,Date: "+DateTime.Now.ToLongTimeString());
+            Console.WriteLine("get topic message,Date: " + DateTime.Now.ToLongTimeString());
             Console.WriteLine("topic: " + topic);
             Console.WriteLine("get messgae :" + message);
         }
@@ -193,21 +187,21 @@ namespace MQTTXFClient
         {
             Console.WriteLine("- - - - - - - - - - ");
             Console.WriteLine("published,Date: " + DateTime.Now.ToLongTimeString());
-            Console.WriteLine("MessageId: "+e.MessageId+"    Is Published: "+e.IsPublished);
+            Console.WriteLine("MessageId: " + e.MessageId + "    Is Published: " + e.IsPublished);
         }
 
         public void Default_SubedEventHandler(object sender, MqttMsgSubscribedEventArgs e)
         {
             Console.WriteLine("- - - - - - - - - - ");
             Console.WriteLine("Sub topic,Date: " + DateTime.Now.ToLongTimeString());
-            Console.WriteLine("MessageId: "+e.MessageId);
+            Console.WriteLine("MessageId: " + e.MessageId);
             Console.WriteLine("List of granted QOS Levels:    " + Encoding.UTF8.GetString(e.GrantedQoSLevels));
         }
         public void Default_UnSubedEventHandler(object sender, MqttMsgUnsubscribedEventArgs e)
         {
             Console.WriteLine("- - - - - - - - - - ");
             Console.WriteLine("Sub topic error,Date: " + DateTime.Now.ToLongTimeString());
-            Console.WriteLine("MessageId:    "+e.MessageId);
+            Console.WriteLine("MessageId:    " + e.MessageId);
         }
 
         public void Default_ConnectionClosedEventHandler(object sender, EventArgs e)
