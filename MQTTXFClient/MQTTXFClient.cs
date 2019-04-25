@@ -11,7 +11,7 @@ using static uPLibrary.Networking.M2Mqtt.MqttClient;
 
 namespace MQTTXFClient
 {
-    //  封装 M2MQTT ，配合阿里云IOT
+    //  封装 M2MQTT ，配合阿里云IOT，目前仅支持透传
     public class XFMQTT
     {
         public XFMQTT()
@@ -29,6 +29,18 @@ namespace MQTTXFClient
         string mqttPassword;
         string mqttClientId;
 
+        #region 用于自定义功能的属性、服务、事件Topic(共用)
+        // 上行用于上传数据等，下行用于发布指令
+        // 上报 请求 Topic
+        string up_raw;
+        // 上报 响应 Topic
+        string up_raw_reply;
+        // 下行 请求 Topic
+        string down_raw;
+        // 下行 响应 Topic
+        string down_raw_reply;
+        #endregion
+
         /// <summary>
         /// 初始话连接设置
         /// </summary>
@@ -40,6 +52,14 @@ namespace MQTTXFClient
         {
 
             TopicHead = "/" + ProductKey + "/" + DeviceName;    // 针对设备生成 Topic 头
+
+            #region 设置设备属性、服务、事件通讯
+            up_raw = $"/sys/{ProductKey}/{DeviceName}/thing/model/up_raw";
+            up_raw_reply = $"/sys/{ProductKey}/{DeviceName}/thing/model/up_raw_reply";
+
+            down_raw = $"/sys/{ProductKey}/{DeviceName}/thing/model/down_raw";
+            down_raw_reply = $"/sys/{ProductKey}/{DeviceName}/thing/model/down_raw_reply";
+            #endregion
 
             // 生成唯一 ClientID
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -97,8 +117,27 @@ namespace MQTTXFClient
 
 
 
+        #region 发布消息
+
+        /*
+         发布功能仅用于上传数据、发布、上传属性，格式由自己在服务器和本地定义
+         */
+
         /// <summary>
-        /// 向服务器发布消息
+        /// 上传属性或发布 Topic
+        /// </summary>
+        /// <param name="PubTopic"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+
+        public int Subscribe(string PubTopic, byte[] content)
+        {
+            var id = client.Publish(PubTopic,content);
+            return id;
+        }
+
+        /// <summary>
+        /// 上传属性或发布 Topic
         /// </summary>
         /// <param name="PubTopic">要发布到的Topic名称</param>
         /// <param name="content">消息内容</param>
@@ -111,6 +150,66 @@ namespace MQTTXFClient
             var id = client.Publish(PubTopic, Encoding.ASCII.GetBytes(content));
             return id;
         }
+
+        /// <summary>
+        /// 上传属性或发布 Topic，会将源数据进行 Base 64位加密再上传
+        /// </summary>
+        /// <param name="PubTopic"></param>
+        /// <param name="betys">源数据</param>
+        /// <returns></returns>
+        public int SubscribeToBase(string PubTopic, byte[] betys)
+        {
+            string base64 = Convert.ToBase64String(betys);
+            int id = client.Publish(PubTopic, Encoding.ASCII.GetBytes(base64));
+            return id;
+        }
+
+        /// <summary>
+        /// 设备上传属性--透传
+        /// </summary>
+        /// <param name="betys">要发布的数据</param>
+        public int Up_Raw(byte[] bytes)
+        {
+            int id=Subscribe(up_raw,bytes);
+            return id;
+        }
+
+        /// <summary>
+        /// 设备上传属性--透传,转为 Base 64位加密后上传
+        /// </summary>
+        /// <param name="betys">要发布的数据</param>
+        public int Up_RawToBase64(byte[] bytes)
+        {
+            string base64 = Convert.ToBase64String(bytes);
+            int id = Subscribe(up_raw, base64);
+            return id;
+        }
+
+
+        /// <summary>
+        /// 设备上传属性--透传
+        /// </summary>
+        /// <param name="up_rawTopic">自定义设备上报属性地址</param>
+        /// <param name="betys">要发布的二进制数据</param>
+        public int Up_Raw(string up_rawTopic,byte[] bytes)
+        {
+            int id = Subscribe(up_rawTopic, bytes);
+            return id;
+        }
+
+        /// <summary>
+        /// 设备上传属性--透传,Base 64 位加密后上传
+        /// </summary>
+        /// <param name="up_rawTopic">自定义设备上报属性地址</param>
+        /// <param name="betys">要发布的二进制数据</param>
+        public int Up_Raw_ToBase64(string up_rawTopic, byte[] bytes)
+        {
+            string base64 = Convert.ToBase64String(bytes);
+            int id = Subscribe(up_rawTopic, base64);
+            return id;
+        }
+
+        #endregion
 
         /// <summary>
         /// 添加订阅回调事件
@@ -144,6 +243,7 @@ namespace MQTTXFClient
             UnSubedEventHandler += Default_UnSubedEventHandler;
             ConnectionClosedEventHandler += Default_ConnectionClosedEventHandler;
         }
+
 
         #region 设置回调事件
         /// <summary>
@@ -184,7 +284,7 @@ namespace MQTTXFClient
             string topic = e.Topic;
             string message = Encoding.ASCII.GetString(e.Message);
             Console.WriteLine("- - - - - - - - - - ");
-            Console.WriteLine("get topic message,Date: "+DateTime.Now.ToLongTimeString());
+            Console.WriteLine("get topic message,Date: " + DateTime.Now.ToLongTimeString());
             Console.WriteLine("topic: " + topic);
             Console.WriteLine("get messgae :" + message);
         }
@@ -193,21 +293,21 @@ namespace MQTTXFClient
         {
             Console.WriteLine("- - - - - - - - - - ");
             Console.WriteLine("published,Date: " + DateTime.Now.ToLongTimeString());
-            Console.WriteLine("MessageId: "+e.MessageId+"    Is Published: "+e.IsPublished);
+            Console.WriteLine("MessageId: " + e.MessageId + "    Is Published: " + e.IsPublished);
         }
 
         public void Default_SubedEventHandler(object sender, MqttMsgSubscribedEventArgs e)
         {
             Console.WriteLine("- - - - - - - - - - ");
             Console.WriteLine("Sub topic,Date: " + DateTime.Now.ToLongTimeString());
-            Console.WriteLine("MessageId: "+e.MessageId);
+            Console.WriteLine("MessageId: " + e.MessageId);
             Console.WriteLine("List of granted QOS Levels:    " + Encoding.UTF8.GetString(e.GrantedQoSLevels));
         }
         public void Default_UnSubedEventHandler(object sender, MqttMsgUnsubscribedEventArgs e)
         {
             Console.WriteLine("- - - - - - - - - - ");
             Console.WriteLine("Sub topic error,Date: " + DateTime.Now.ToLongTimeString());
-            Console.WriteLine("MessageId:    "+e.MessageId);
+            Console.WriteLine("MessageId:    " + e.MessageId);
         }
 
         public void Default_ConnectionClosedEventHandler(object sender, EventArgs e)
