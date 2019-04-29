@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MQTTXFClient\MQTTXFClient.csproj" />
+    <ProjectReference Include="..\MQTTXFClient\MQTTXFClient.Core.csproj" />
     <ProjectReference Include="..\WiringXF\WiringXF.csproj" />
   </ItemGroup>
 

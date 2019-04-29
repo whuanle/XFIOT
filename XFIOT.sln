@@ -1,19 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiringXF", "WiringXF\WiringXF.csproj", "{0CF46288-AD2D-4AAB-A74D-85B6D7FA44DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M2Mqtt", "..\mqtt-master\M2Mqtt\M2Mqtt.csproj", "{70CAC41D-C613-4363-AFFF-4C4EDAA8A406}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTXFClient", "MQTTXFClient\MQTTXFClient.csproj", "{2CE2E29A-5297-4DF2-9BB8-AA997EEABFA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTXFClient.Core", "MQTTXFClient\MQTTXFClient.Core.csproj", "{2CE2E29A-5297-4DF2-9BB8-AA997EEABFA9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiringXFSO", "WiringXFSO\WiringXFSO.vcxproj", "{264D55CF-1401-43F6-83EE-BB85BFD9E261}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M2Mqtt.Net", "M2Mqtt\M2Mqtt.Net.csproj", "{A11AEF5A-B246-4FE8-8330-06DB73CC8074}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTTXFClient.Net", "MQTTXFClient.Net\MQTTXFClient.Net.csproj", "{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo_IOT-Raspberry_LED", "Demo_Raspberry_LED\Demo_IOT-Raspberry_LED.csproj", "{E669DFFA-E668-478A-92C7-6377643206D2}"
 EndProject
@@ -21,7 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_Raspberry", "ConsoleAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo_Console", "Demo_Console\Demo_Console.csproj", "{6916720B-1849-4B65-AFFA-1CE06449A2C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_byxm", "Demo_byxm\Demo_byxm.csproj", "{F72A81F4-FFD7-402F-B465-8AACEB996338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo_byxm", "Demo_byxm\Demo_byxm.csproj", "{F72A81F4-FFD7-402F-B465-8AACEB996338}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTXFClient.Standard", "MQTTXFClient.Standard\MQTTXFClient.Standard.csproj", "{18A41764-E407-4472-AFC3-971C9D6F3E7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,18 +91,6 @@ Global
 		{A11AEF5A-B246-4FE8-8330-06DB73CC8074}.Release|ARM.Build.0 = Release|Any CPU
 		{A11AEF5A-B246-4FE8-8330-06DB73CC8074}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{A11AEF5A-B246-4FE8-8330-06DB73CC8074}.Release|ARM64.Build.0 = Release|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Debug|ARM.Build.0 = Debug|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Release|ARM.ActiveCfg = Release|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Release|ARM.Build.0 = Release|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{7CE22C56-39F5-43F0-AEEE-07E1315F0E03}.Release|ARM64.Build.0 = Release|Any CPU
 		{E669DFFA-E668-478A-92C7-6377643206D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E669DFFA-E668-478A-92C7-6377643206D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E669DFFA-E668-478A-92C7-6377643206D2}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -151,6 +139,18 @@ Global
 		{F72A81F4-FFD7-402F-B465-8AACEB996338}.Release|ARM.Build.0 = Release|Any CPU
 		{F72A81F4-FFD7-402F-B465-8AACEB996338}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{F72A81F4-FFD7-402F-B465-8AACEB996338}.Release|ARM64.Build.0 = Release|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Release|ARM.Build.0 = Release|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{18A41764-E407-4472-AFC3-971C9D6F3E7B}.Release|ARM64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
