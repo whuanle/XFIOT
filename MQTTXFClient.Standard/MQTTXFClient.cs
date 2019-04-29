@@ -231,10 +231,14 @@ namespace MQTTXFClient
         /// <summary>
         /// 上传设备属性--Alink Json
         /// </summary>
-        /// <param name="json"></param>
+        /// <param name="json">josn</param>
+        /// <param name="isToLower">是否转为小写</param>
         /// <returns></returns>
-        public int Thing_Property_Post(string json)
+        public int Thing_Property_Post(string json,bool isToLwer=true)
         {
+            if (isToLwer == true)
+                json = json.ToLower();
+
             int id = Subscribe(thingModel.upTopic.post, json);
             return id;
         }
@@ -249,10 +253,14 @@ namespace MQTTXFClient
         /// </summary>
         /// <typeparam name="AlinkModel">模型类型</typeparam>
         /// <param name="model">模型</param>
+        /// <param name="isToLower">是否全部转为小写</param>
         /// <returns></returns>
-        public int Thing_Property_Post<AlinkModel>(AlinkModel model)
+        public int Thing_Property_Post<AlinkModel>(AlinkModel model,bool isToLower=true)
         {
             string json = JsonConvert.SerializeObject(model);
+            if (isToLower == true)
+                json = json.ToLower();
+
             int id = Subscribe(thingModel.upTopic.post, json);
             return id;
         }
@@ -263,6 +271,11 @@ namespace MQTTXFClient
         #region 设置设备属性
 
         #region 透传
+        /// <summary>
+        /// 收到服务器属性设置命令，返回响应
+        /// </summary>
+        /// <param name="content">响应内容</param>
+        /// <returns></returns>
         public int Thing_Property_down_raw_reply(byte[] content)
         {
             int id = Subscribe(thingModel.setTopic.down_raw_reply, content);
@@ -272,9 +285,16 @@ namespace MQTTXFClient
         #endregion
 
         #region Alink Json
-
-        public int Thing_Property_set(string content)
+        /// <summary>
+        /// 收到服务器属性设置命令，返回响应
+        /// </summary>
+        /// <param name="content">响应内容</param>
+        /// <param name="isToLower">是否转为小写</param>
+        /// <returns></returns>
+        public int Thing_Property_set(string content,bool isToLower=true)
         {
+            if (isToLower == true)
+                content = content.ToLower();
             int id = Subscribe(thingModel.setTopic.down_raw_reply, content);
             return id;
         }
@@ -283,9 +303,19 @@ namespace MQTTXFClient
             int id = Subscribe(thingModel.setTopic.down_raw_reply, content);
             return id;
         }
-        public int Thing_Property_set<SetJson>(SetJson model)
+        /// <summary>
+        /// 设备属性下发设置
+        /// </summary>
+        /// <typeparam name="SetJson">收到的json</typeparam>
+        /// <param name="model">模型</param>
+        /// <param name="isToLower">是否转为小写</param>
+        /// <returns></returns>
+        public int Thing_Property_set<SetJson>(SetJson model,bool isToLower=true)
         {
             string json = JsonConvert.SerializeObject(model);
+            if (isToLower == true)
+                json = json.ToLower();
+
             int id = Subscribe(thingModel.setTopic.down_raw_reply, json);
             return id;
         }
@@ -330,8 +360,10 @@ namespace MQTTXFClient
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
-        public int Thing_Event_Post(string content)
+        public int Thing_Event_Post(string content,bool isToLower=true)
         {
+            if (isToLower == true)
+                content = content.ToLower();
             int id = Subscribe(thingModel.eventTopic.post, content);
             return id;
         }
@@ -340,10 +372,13 @@ namespace MQTTXFClient
         /// 设备事件上报 Alink JSON
         /// </summary>
         /// <param name="content"></param>
+        /// <param name="isToLower">是否转为小写</param>
         /// <returns></returns>
-        public int Thing_Event_Post<EventJson>(EventJson model)
+        public int Thing_Event_Post<EventJson>(EventJson model,bool isToLower=true)
         {
             string json = JsonConvert.SerializeObject(model);
+            if (isToLower == true)
+                json = json.ToLower();
             int id = Subscribe(thingModel.eventTopic.post, json);
             return id;
         }
@@ -378,9 +413,11 @@ namespace MQTTXFClient
         /// 设备服务调用
         /// </summary>
         /// <param name="content"></param>
+        /// <param name="isToLower">是否转为小写</param>
         /// <returns></returns>
-        public int THing_Service_Identifier_Reply(string content)
-        {
+        public int THing_Service_Identifier_Reply(string content,bool isToLower=true)
+        {if (isToLower == true)
+                content = content.ToLower();
             int id = Subscribe(thingModel.serviceTopic.identifier_reply, content);
             return id;
         }
@@ -388,11 +425,14 @@ namespace MQTTXFClient
         /// 设备服务调用
         /// </summary>
         /// <typeparam name="ServiceJsonModel"></typeparam>
-        /// <param name="model"></param>
+        /// <param name="model">模型</param>
+        /// <param name="isToLower">是否转为小写</param>
         /// <returns></returns>
-        public int THing_Service_Identifier_Reply<ServiceJsonModel>(ServiceJsonModel model)
+        public int THing_Service_Identifier_Reply<ServiceJsonModel>(ServiceJsonModel model,bool isToLower=true)
         {
             string json = JsonConvert.SerializeObject(model);
+            if (isToLower == true)
+                json = json.ToLower();
             int id = Subscribe(thingModel.serviceTopic.identifier_reply, json);
             return id;
         }

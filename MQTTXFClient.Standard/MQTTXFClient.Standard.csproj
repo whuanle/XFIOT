@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\mqtt-master\M2Mqtt\M2Mqtt.csproj" />
+    <ProjectReference Include="..\M2Mqtt\M2Mqtt.csproj" />
   </ItemGroup>
 
 </Project>
